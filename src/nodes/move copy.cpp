@@ -20,12 +20,8 @@
 #include "bt_include/move.hpp"
 
 #include "geometry_msgs/msg/pose2_d.hpp"
-#include "tf2_geometry_msgs/tf2_geometry_msgs.hpp"
-
 
 #include "behaviortree_cpp_v3/behavior_tree.h"
-#include "rclcpp_lifecycle/lifecycle_node.hpp"
-
 
 namespace plansys2_gpsr
 {
@@ -34,28 +30,21 @@ Move::Move(
   const std::string & xml_tag_name,
   const std::string & action_name,
   const BT::NodeConfiguration & conf)
-: plansys2::BtActionNode<nav2_msgs::action::NavigateToPose>(xml_tag_name, action_name, conf)
+: plansys2::BtActionNode<test_msgs::action::Fibonacci>(xml_tag_name, action_name, conf)
 {
-  rclcpp_lifecycle::LifecycleNode::SharedPtr node;
+  rclcpp::Node::SharedPtr node;
   config().blackboard->get("node", node);
 
-  try {
-    node->declare_parameter<std::vector<std::string>>("waypoints");
-  } catch (const rclcpp::exceptions::ParameterAlreadyDeclaredException & e) {
-    // Do nothing;
-  }
-
+  node->declare_parameter<std::vector<std::string>>(
+    "waypoints", std::vector<std::string>({}));
   if (node->has_parameter("waypoints")) {
     std::vector<std::string> wp_names;
 
     node->get_parameter_or("waypoints", wp_names, {});
 
     for (auto & wp : wp_names) {
-      try {
-        node->declare_parameter<std::vector<double>>("waypoint_coords." + wp);
-      } catch (const rclcpp::exceptions::ParameterAlreadyDeclaredException & e) {
-        // Do nothing;
-      }
+      node->declare_parameter<std::vector<double>>(
+        "waypoint_coords." + wp, std::vector<double>({}));
 
       std::vector<double> coords;
       if (node->get_parameter_or("waypoint_coords." + wp, coords, {})) {
@@ -76,9 +65,6 @@ BT::NodeStatus
 Move::on_tick()
 {
   if (status() == BT::NodeStatus::IDLE) {
-    rclcpp_lifecycle::LifecycleNode::SharedPtr node;
-    config().blackboard->get("node", node);
-
     std::string goal;
     getInput<std::string>("goal", goal);
 
@@ -89,16 +75,10 @@ Move::on_tick()
       std::cerr << "No coordinate for waypoint [" << goal << "]" << std::endl;
     }
 
-    geometry_msgs::msg::PoseStamped goal_pos;
+    int order_to = 10;
+    goal_.order = order_to;
 
-    goal_pos.header.frame_id = "map";
-    goal_pos.header.stamp = node->now();
-    goal_pos.pose.position.x = pose2nav.x;
-    goal_pos.pose.position.y = pose2nav.y;
-    goal_pos.pose.position.z = 0;
-    goal_pos.pose.orientation = tf2::toMsg(tf2::Quaternion({0.0, 0.0, 1.0}, pose2nav.theta));
-
-    goal_.pose = goal_pos;
+    setOutput("goal_reached", 0);
   }
 
   return BT::NodeStatus::RUNNING;
@@ -107,6 +87,8 @@ Move::on_tick()
 BT::NodeStatus
 Move::on_success()
 {
+  setOutput("goal_reached", result_.result->sequence[0]);
+
   return BT::NodeStatus::SUCCESS;
 }
 

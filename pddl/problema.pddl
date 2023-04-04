@@ -1,12 +1,13 @@
-(define (problem grandma_medicine_problem)
+(define (problem planning-1)
     (:domain planning)
     (:objects
         Bano Cocina Salon Dormitorio Pasillo - room
         Robot - robot
         PBano PCocina PSalon PDormitorio PPasillo - door
-        PastillaVerde PastillaAmarilla VasitoConAgua - object
+        Medicina Toalla Plato Cubiertos - object
     )
     (:init
+
         ;Definicion del Mapa
 
         (ConnectedTo Pasillo Bano PBano)
@@ -32,29 +33,29 @@
         ;Estado Puertas
 
         (doorOpen PBano)
-        (doorClosed PCocina)
-        (doorClosed PSalon)
+        (doorOpen PCocina)
+        (doorOpen PSalon)
         (doorOpen PDormitorio)
-        (doorClosed PPasillo)
+        (doorOpen PPasillo)
 
         ;Colocacion Robot Objetos (estado inicial objetos)
 
-        (robotAt Robot Dormitorio )
+        (robotAt Robot Pasillo )
 
-        (objectAt PastillaVerde Salon)
-        (objectAt PastillaAmarilla Pasillo)
-        (objectAt VasitoConAgua Cocina)
+        (objectAt Medicina Bano)
+        (objectAt Plato Salon)
+        (objectAt Cubiertos Salon)
+        (objectAt Toalla Dormitorio)
 
     )
 
     (:goal
         (and
-
-        (doorClosed PDormitorio)
-        (objectAt PastillaVerde Dormitorio)
-        (objectAt PastillaAmarilla Dormitorio)
-
-        )
+        (objectAt Medicina Dormitorio)
+        (objectAt Plato Cocina)
+        (objectAt Cubiertos Cocina)
+        (objectAt Toalla Bano)
+         )
 
     )
 )

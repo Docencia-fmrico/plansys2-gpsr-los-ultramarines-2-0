@@ -15,7 +15,7 @@
 #include <string>
 #include <iostream>
 
-#include "PickItem.hpp"
+#include "bt_include/PickItem.hpp"
 
 #include "behaviortree_cpp_v3/behavior_tree.h"
 

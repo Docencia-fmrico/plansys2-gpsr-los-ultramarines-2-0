@@ -36,31 +36,33 @@ set(dependencies
 
 include_directories(include)
 
+add_library(bt_closedoor SHARED src/nodes/CloseDoor.cpp)
+list(APPEND plugin_libs bt_closedoor)
+
+add_library(bt_opendoor SHARED src/nodes/OpenDoor.cpp)
+list(APPEND plugin_libs bt_opendoor)
+
+add_library(bt_pick SHARED src/nodes/PickItem.cpp)
+list(APPEND plugin_libs bt_pick)
+
+add_library(bt_drop SHARED src/nodes/DropItem.cpp)
+list(APPEND plugin_libs bt_drop)
+
+add_library(bt_move SHARED src/nodes/move.cpp)
+list(APPEND plugin_libs bt_move)
+
+
+foreach(bt_plugin ${plugin_libs})
+  ament_target_dependencies(${bt_plugin} ${dependencies})
+  target_compile_definitions(${bt_plugin} PRIVATE BT_PLUGIN_EXPORT)
+endforeach()
+
 add_executable(gpsr_controller src/gpsr_controller.cpp)
 ament_target_dependencies(gpsr_controller ${dependencies})
 
 add_executable(move_action_node src/move_action_node.cpp)
 ament_target_dependencies(move_action_node ${dependencies})
 
-# add_library(bt_move SHARED src/bt_nodes/Move.cpp)
-add_library(bt_pick SHARED src/nodes/PickItem.cpp)
-add_library(bt_drop SHARED src/nodes/DropItem.cpp)
-add_library(bt_closedoor SHARED src/nodes/CloseDoor.cpp)
-add_library(bt_opendoor SHARED src/nodes/OpenDoor.cpp)
-
-
-list(APPEND plugin_libs
-  # bt_move
-  bt_pick
-  bt_drop
-  bt_closedoor
-  bt_opendoor
-)
-
-foreach(bt_plugin ${plugin_libs})
-  ament_target_dependencies(${bt_plugin} ${dependencies})
-  target_compile_definitions(${bt_plugin} PRIVATE BT_PLUGIN_EXPORT)
-endforeach()
 
 install(DIRECTORY launch pddl bt_xml config DESTINATION share/${PROJECT_NAME})
 

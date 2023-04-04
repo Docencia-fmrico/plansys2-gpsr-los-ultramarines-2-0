@@ -15,7 +15,7 @@
 #include <string>
 #include <iostream>
 
-#include "CloseDoor.hpp"
+#include "bt_include/CloseDoor.hpp"
 
 #include "behaviortree_cpp_v3/behavior_tree.h"
 
@@ -40,7 +40,7 @@ CloseDoor::tick()
 {
   std::cout << "CloseDoor: " << counter_ * 10 << std::endl;
 
-  if (counter_++ < 10) {
+  if (counter_++ < 5) {
     return BT::NodeStatus::RUNNING;
   } else {
     counter_ = 0;

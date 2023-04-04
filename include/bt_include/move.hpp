@@ -20,6 +20,8 @@
 
 #include "geometry_msgs/msg/pose2_d.hpp"
 #include "test_msgs/action/fibonacci.hpp"
+#include "nav2_msgs/action/navigate_to_pose.hpp"
+
 
 #include "plansys2_bt_actions/BTActionNode.hpp"
 #include "behaviortree_cpp_v3/behavior_tree.h"
@@ -28,7 +30,7 @@
 namespace plansys2_gpsr
 {
 
-class Move : public plansys2::BtActionNode<test_msgs::action::Fibonacci>
+class Move : public plansys2::BtActionNode<nav2_msgs::action::NavigateToPose>
 {
 public:
   explicit Move(
@@ -42,8 +44,7 @@ public:
   static BT::PortsList providedPorts()
   {
     return {
-      BT::InputPort<std::string>("goal"),
-      BT::OutputPort<int>("goal_reached"),
+      BT::InputPort<std::string>("goal")
     };
   }
 
