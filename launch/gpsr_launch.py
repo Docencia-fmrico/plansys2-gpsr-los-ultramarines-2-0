@@ -81,7 +81,7 @@ def generate_launch_description():
         parameters=[
           example_dir + '/config/params.yaml',
           {
-            'action_name': 'PickItem',
+            'action_name': 'pickitem',
             'publisher_port': 1670,
             'server_port': 1671,
             'bt_xml_file': example_dir + '/bt_xml/PickItem.xml'
@@ -97,7 +97,7 @@ def generate_launch_description():
         parameters=[
           example_dir + '/config/params.yaml',
           {
-            'action_name': 'DropItem',
+            'action_name': 'dropitem',
             'publisher_port': 1672,
             'server_port': 1673,
             'bt_xml_file': example_dir + '/bt_xml/DropItem.xml'

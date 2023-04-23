@@ -152,8 +152,9 @@ public:
             std::cout << "Failure finished " << std::endl;
           }
 
+
           if (last_problem_ == PROBLEM1) {
-            state_ = PROBLEM2;
+            break;
           } else {
             state_ = PROBLEM1;
           }
@@ -164,10 +165,10 @@ public:
       case PROBLEM1:
       {
         problem_expert_->clearGoal();
-        problem_expert_->setGoal(plansys2::Goal("(and(doorclosed psalon)(doorclosed pbano)(doorclosed pdormitorio)(doorclosed pcocina))"));
-        //problem_expert_->setGoal(plansys2::Goal("(and(objectAt medicina dormitorio) (objectAt plato cocina) (objectAt cubiertos cocina) (objectAt toalla bano))"));
+        problem_expert_->setGoal(plansys2::Goal("(and (objectat medicina cocina))"));
         new_plan = true;
-        last_problem_ = PROBLEM1;
+        last_problem_ == PROBLEM1;
+        std::cout << "FIN \n " << std::endl;
 
       }
       break;
@@ -175,7 +176,7 @@ public:
       case PROBLEM2:
       {
         problem_expert_->clearGoal();
-        problem_expert_->setGoal(plansys2::Goal("(and(robotAt paco salon))"));
+        problem_expert_->setGoal(plansys2::Goal("(and(robotAt paco pasillo))"));
         new_plan = true;
         last_problem_ = PROBLEM2;
       }

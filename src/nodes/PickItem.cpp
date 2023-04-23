@@ -38,6 +38,7 @@ PickItem::halt()
 BT::NodeStatus
 PickItem::tick()
 {
+  std::cout << "------------->>---------->>>\n" << std::endl;
   std::cout << "PickItem: " << counter_ * 10 << std::endl;
 
   if (counter_++ < 10) {
