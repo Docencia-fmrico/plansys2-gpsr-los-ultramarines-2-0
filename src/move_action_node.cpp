@@ -40,8 +40,8 @@ public:
     geometry_msgs::msg::PoseStamped wp;
     wp.header.frame_id = "map";
     wp.header.stamp = now();
-    wp.pose.position.x = -1.0;
-    wp.pose.position.y = 2.0;
+    wp.pose.position.x = 8.0;
+    wp.pose.position.y = -3.0;
     wp.pose.position.z = 0.0;
     wp.pose.orientation.x = 0.0;
     wp.pose.orientation.y = 0.0;
@@ -49,21 +49,26 @@ public:
     wp.pose.orientation.w = 1.0;
     waypoints_["salon"] = wp;
 
-    wp.pose.position.x = 1.0;
-    wp.pose.position.y = 3.0;
+    wp.pose.position.x = -8.0;
+    wp.pose.position.y = -5.0;
     waypoints_["cocina"] = wp;
 
-    wp.pose.position.x = 2.0;
-    wp.pose.position.y = 1.0;
+    wp.pose.position.x = -8.0;
+    wp.pose.position.y = -18.0;
     wp.pose.position.z = 0.0;
     waypoints_["bano"] = wp;
 
-    wp.pose.position.x = 2.0;
-    wp.pose.position.y = 0.0;
+    wp.pose.position.x = 8.0;
+    wp.pose.position.y = -18.0;
     waypoints_["dormitorio"] = wp;
 
+    wp.pose.position.x = 5.0;
+    wp.pose.position.y = -25.0;
+    waypoints_["terraza"] = wp;
+
+
     wp.pose.position.x = 0.0;
-    wp.pose.position.y = 1.0;
+    wp.pose.position.y = 2.0;
     wp.pose.position.z = 0.0;
     waypoints_["pasillo"] = wp;
 

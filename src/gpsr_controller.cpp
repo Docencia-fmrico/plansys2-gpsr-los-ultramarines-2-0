@@ -31,17 +31,31 @@ class GpsrController : public rclcpp::Node
 {
 public:
   GpsrController()
-  : rclcpp::Node("gpsr_controller"), state_(PROBLEM1), last_problem_(PROBLEM2)
+  : rclcpp::Node("gpsr_controller"), state_(PROBLEM1)
   {
   }
 
-  bool init()
+  bool init(int problem_knowledge)
   {
     domain_expert_ = std::make_shared<plansys2::DomainExpertClient>();
     planner_client_ = std::make_shared<plansys2::PlannerClient>();
     problem_expert_ = std::make_shared<plansys2::ProblemExpertClient>();
     executor_client_ = std::make_shared<plansys2::ExecutorClient>();
-    init_knowledge();
+    init_knowledge(problem_knowledge);
+    if (problem_knowledge == 1)
+      state_ = PROBLEM1;
+    else if (problem_knowledge == 2) {
+      state_ = PROBLEM2;
+      execute_times = 2;
+      problem = 2;
+    }
+    else if (problem_knowledge == 3) {
+      state_ = PROBLEM3;
+      execute_times = 3;
+      problem = 3;
+    }
+    
+    
 
     auto domain = domain_expert_->getDomain();
     auto problem = problem_expert_->getProblem();
@@ -60,12 +74,14 @@ public:
     return true;
   }
 
-  void init_knowledge()
+
+  void static_knowledge()
   {
     problem_expert_->addInstance(plansys2::Instance{"bano", "room"});
     problem_expert_->addInstance(plansys2::Instance{"cocina", "room"});
     problem_expert_->addInstance(plansys2::Instance{"salon", "room"});
     problem_expert_->addInstance(plansys2::Instance{"dormitorio", "room"});
+    problem_expert_->addInstance(plansys2::Instance{"terraza", "room"});
     problem_expert_->addInstance(plansys2::Instance{"pasillo", "room"});
 
     problem_expert_->addInstance(plansys2::Instance{"paco", "robot"});
@@ -74,12 +90,9 @@ public:
     problem_expert_->addInstance(plansys2::Instance{"pcocina", "door"});
     problem_expert_->addInstance(plansys2::Instance{"psalon", "door"});
     problem_expert_->addInstance(plansys2::Instance{"pdormitorio", "door"});
+    problem_expert_->addInstance(plansys2::Instance{"pterraza", "door"});
     problem_expert_->addInstance(plansys2::Instance{"ppasillo", "door"});
 
-    problem_expert_->addInstance(plansys2::Instance{"medicina", "object"});
-    problem_expert_->addInstance(plansys2::Instance{"toalla", "object"});
-    problem_expert_->addInstance(plansys2::Instance{"plato", "object"});
-    problem_expert_->addInstance(plansys2::Instance{"cubiertos", "object"});
 
 
     problem_expert_->addPredicate(plansys2::Predicate("(connectedto pasillo bano pbano)"));
@@ -102,23 +115,138 @@ public:
     problem_expert_->addPredicate(plansys2::Predicate("(connectedto dormitorio pasillo pdormitorio)"));
     problem_expert_->addPredicate(plansys2::Predicate("(doorat pdormitorio pasillo)"));
 
+    problem_expert_->addPredicate(plansys2::Predicate("(connectedto pasillo terraza pterraza)"));
+    problem_expert_->addPredicate(plansys2::Predicate("(doorat pterraza terraza)"));
+    problem_expert_->addPredicate(plansys2::Predicate("(connectedto terraza pasillo pterraza)"));
+    problem_expert_->addPredicate(plansys2::Predicate("(doorat pterraza pasillo)"));
+
+    problem_expert_->addPredicate(plansys2::Predicate("(doorat ppasillo pasillo)"));
+
+  }
+
+
+  void init_knowledge1()
+  {
+    problem_expert_->addInstance(plansys2::Instance{"medicina", "object"});
+    problem_expert_->addInstance(plansys2::Instance{"toalla", "object"});
+    problem_expert_->addInstance(plansys2::Instance{"plato", "object"});
+    problem_expert_->addInstance(plansys2::Instance{"cubiertos", "object"});
+    problem_expert_->addInstance(plansys2::Instance{"planta", "object"});
+
+
     problem_expert_->addPredicate(plansys2::Predicate("(dooropen pbano)"));
     problem_expert_->addPredicate(plansys2::Predicate("(dooropen pcocina)"));
     problem_expert_->addPredicate(plansys2::Predicate("(dooropen psalon)"));
     problem_expert_->addPredicate(plansys2::Predicate("(dooropen pdormitorio)"));
+    problem_expert_->addPredicate(plansys2::Predicate("(dooropen pterraza)"));
     problem_expert_->addPredicate(plansys2::Predicate("(dooropen ppasillo)"));
 
-    problem_expert_->addPredicate(plansys2::Predicate("(robotat paco pasillo)"));
+    problem_expert_->addPredicate(plansys2::Predicate("(robotat paco dormitorio)"));
 
     problem_expert_->addPredicate(plansys2::Predicate("(objectat medicina bano)"));
     problem_expert_->addPredicate(plansys2::Predicate("(objectat plato salon)"));
     problem_expert_->addPredicate(plansys2::Predicate("(objectat cubiertos salon)"));
     problem_expert_->addPredicate(plansys2::Predicate("(objectat toalla dormitorio)"));
+    problem_expert_->addPredicate(plansys2::Predicate("(objectat planta terraza)"));
 
   }
 
-  void step() { 
+  void init_knowledge2()
+  {
+    problem_expert_->addInstance(plansys2::Instance{"pastilla_verde", "object"});
+    problem_expert_->addInstance(plansys2::Instance{"pastilla_roja", "object"});
+    problem_expert_->addInstance(plansys2::Instance{"pastilla_amarilla", "object"});
+    problem_expert_->addInstance(plansys2::Instance{"pastilla_azul", "object"});
+    problem_expert_->addInstance(plansys2::Instance{"pastilla_naranja", "object"});
+    problem_expert_->addInstance(plansys2::Instance{"agua", "object"});
 
+    problem_expert_->addInstance(plansys2::Instance{"abuela", "object"});
+
+
+    problem_expert_->addPredicate(plansys2::Predicate("(dooropen pbano)"));
+    problem_expert_->addPredicate(plansys2::Predicate("(dooropen pcocina)"));
+    problem_expert_->addPredicate(plansys2::Predicate("(dooropen psalon)"));
+    problem_expert_->addPredicate(plansys2::Predicate("(dooropen pdormitorio)"));
+    problem_expert_->addPredicate(plansys2::Predicate("(dooropen pterraza)"));
+    problem_expert_->addPredicate(plansys2::Predicate("(dooropen ppasillo)"));
+
+    problem_expert_->addPredicate(plansys2::Predicate("(robotat paco pasillo)"));
+
+    problem_expert_->addPredicate(plansys2::Predicate("(objectat pastilla_verde bano)"));
+    problem_expert_->addPredicate(plansys2::Predicate("(objectat pastilla_roja salon)"));
+    problem_expert_->addPredicate(plansys2::Predicate("(objectat pastilla_amarilla salon)"));
+    problem_expert_->addPredicate(plansys2::Predicate("(objectat pastilla_azul pasillo)"));
+    problem_expert_->addPredicate(plansys2::Predicate("(objectat pastilla_naranja terraza)"));
+    problem_expert_->addPredicate(plansys2::Predicate("(objectat agua cocina)"));
+
+    problem_expert_->addPredicate(plansys2::Predicate("(objectat abuela terraza)"));
+
+  }
+
+
+    void init_knowledge3()
+  {
+    problem_expert_->addInstance(plansys2::Instance{"regadera_vacia", "object"});
+    problem_expert_->addInstance(plansys2::Instance{"regadera_llena", "object"});
+    problem_expert_->addInstance(plansys2::Instance{"aspiradora", "object"});
+    problem_expert_->addInstance(plansys2::Instance{"polvo1", "object"});
+    problem_expert_->addInstance(plansys2::Instance{"polvo2", "object"});
+    problem_expert_->addInstance(plansys2::Instance{"polvo3", "object"});
+    problem_expert_->addInstance(plansys2::Instance{"polvo4", "object"});
+    problem_expert_->addInstance(plansys2::Instance{"polvo5", "object"});
+
+    problem_expert_->addInstance(plansys2::Instance{"perro_sucio", "object"});
+    problem_expert_->addInstance(plansys2::Instance{"perro_mojado", "object"});
+    problem_expert_->addInstance(plansys2::Instance{"perro_seco", "object"});
+
+
+    problem_expert_->addInstance(plansys2::Instance{"abuela", "object"});
+
+
+    problem_expert_->addPredicate(plansys2::Predicate("(doorclosed pbano)"));
+    problem_expert_->addPredicate(plansys2::Predicate("(dooropen pcocina)"));
+    problem_expert_->addPredicate(plansys2::Predicate("(dooropen psalon)"));
+    problem_expert_->addPredicate(plansys2::Predicate("(dooropen pdormitorio)"));
+    problem_expert_->addPredicate(plansys2::Predicate("(doorclosed pterraza)"));
+    problem_expert_->addPredicate(plansys2::Predicate("(dooropen ppasillo)"));
+
+    problem_expert_->addPredicate(plansys2::Predicate("(robotat paco pasillo)"));
+
+    problem_expert_->addPredicate(plansys2::Predicate("(objectat regadera_llena bano)"));
+    problem_expert_->addPredicate(plansys2::Predicate("(objectat aspiradora dormitorio)"));
+    problem_expert_->addPredicate(plansys2::Predicate("(objectat regadera_vacia salon)"));
+
+    problem_expert_->addPredicate(plansys2::Predicate("(objectat polvo1 salon)"));
+    problem_expert_->addPredicate(plansys2::Predicate("(objectat polvo2 bano)"));
+    problem_expert_->addPredicate(plansys2::Predicate("(objectat polvo3 pasillo)"));
+    problem_expert_->addPredicate(plansys2::Predicate("(objectat polvo4 cocina)"));
+    problem_expert_->addPredicate(plansys2::Predicate("(objectat polvo5 dormitorio)"));
+
+
+    problem_expert_->addPredicate(plansys2::Predicate("(objectat perro_sucio salon)"));
+    problem_expert_->addPredicate(plansys2::Predicate("(objectat perro_mojado bano)"));
+    problem_expert_->addPredicate(plansys2::Predicate("(objectat perro_seco terraza)"));
+
+    problem_expert_->addPredicate(plansys2::Predicate("(objectat abuela salon)"));
+
+  }
+
+  void init_knowledge(int problem_knowledge)
+  {
+    static_knowledge();
+    if (problem_knowledge == 1) {
+      init_knowledge1();
+    }
+    else if (problem_knowledge == 2) {
+      init_knowledge2();
+    }
+    else if (problem_knowledge == 3) {
+      init_knowledge3();
+    }
+  }
+
+  void step() { 
+    std::cout << "State: " << state_ << std::endl;
     bool new_plan = false;
 
     switch (state_) {
@@ -148,39 +276,72 @@ public:
         if (!executor_client_->execute_and_check_plan() && executor_client_->getResult()) {
           if (executor_client_->getResult().value().success) {
             std::cout << "Successful finished " << std::endl;
+            if (problem == 2) {
+              std::cout << "CHANGING PROBLEM " << std::endl;
+              state_ = PROBLEM2;
+            }
+            if (problem == 3) {
+              std::cout << "CHANGING PROBLEM " << std::endl;
+              state_ = PROBLEM3;
+            }
           } else {
             std::cout << "Failure finished " << std::endl;
           }
-
-
-          if (last_problem_ == PROBLEM1) {
-            break;
-          } else {
-            state_ = PROBLEM1;
-          }
+        
         }
+
       }
       break;
     
       case PROBLEM1:
       {
         problem_expert_->clearGoal();
-        problem_expert_->setGoal(plansys2::Goal("(and (objectat medicina cocina))"));
+        problem_expert_->setGoal(plansys2::Goal("(and (objectat medicina dormitorio) (objectat plato cocina) (objectat cubiertos cocina) (objectat toalla bano) (objectat planta salon))"));
+        
         new_plan = true;
-        last_problem_ == PROBLEM1;
-        std::cout << "FIN \n " << std::endl;
+      }
+      break;
+      case PROBLEM2:
+      {
+        if (execute_times == 2) {
+          problem_expert_->clearGoal();
+          problem_expert_->setGoal(plansys2::Goal("(and (objectat abuela dormitorio) (robotat paco pasillo) (doorclosed pdormitorio))"));
+          execute_times = 1;
+        }
+        else if (execute_times == 1) {
+          problem_expert_->clearGoal();
+          problem_expert_->setGoal(plansys2::Goal("(and (objectatRobot paco pastilla_verde) (objectatRobot paco pastilla_roja) (objectatRobot paco pastilla_azul) (objectatRobot paco pastilla_amarilla) (objectatRobot paco pastilla_naranja) (objectatRobot paco agua)  (robotat paco dormitorio) (doorclosed pdormitorio) )"));
+          
+          execute_times = 0;
+        }
 
+        new_plan = true;
+      }
+      break;
+      case PROBLEM3:
+      {
+        if (execute_times == 3) {
+          problem_expert_->clearGoal();
+          problem_expert_->setGoal(plansys2::Goal("(and (objectat regadera_vacia bano) (objectatRobot paco regadera_llena) (robotat paco terraza) )"));
+          execute_times = 2;
+        }
+        else if (execute_times == 2) {
+          problem_expert_->clearGoal();
+          problem_expert_->setGoal(plansys2::Goal("(and (objectatRobot paco polvo1) (objectatRobot paco polvo2) (objectatRobot paco polvo3) (objectatRobot paco polvo4) (objectatRobot paco polvo5) (robotat paco terraza) )"));      
+          execute_times = 1;
+        }
+        else if (execute_times == 1) {
+          problem_expert_->clearGoal();
+          problem_expert_->setGoal(plansys2::Goal("(and (objectat perro_sucio bano) (objectat perro_mojado terraza) (objectat perro_seco salon))"));
+          
+          execute_times = 0;
+        }
+        
+        new_plan = true;
       }
       break;
       
-      case PROBLEM2:
-      {
-        problem_expert_->clearGoal();
-        problem_expert_->setGoal(plansys2::Goal("(and(robotAt paco pasillo))"));
-        new_plan = true;
-        last_problem_ = PROBLEM2;
-      }
-      break;
+  
     }
 
 
@@ -208,9 +369,10 @@ public:
   }
 
 private:
-  typedef enum {WORKING, PROBLEM1, PROBLEM2} StateType;
+  typedef enum {WORKING, PROBLEM1, PROBLEM2, PROBLEM3} StateType;
   StateType state_;
-  StateType last_problem_;
+  int execute_times;
+  int problem;
 
   std::shared_ptr<plansys2::DomainExpertClient> domain_expert_;
   std::shared_ptr<plansys2::PlannerClient> planner_client_;
@@ -222,8 +384,10 @@ int main(int argc, char ** argv)
 {
   rclcpp::init(argc, argv);
   auto node = std::make_shared<GpsrController>();
+  std::cout << "argv: " << argv[1] << std::endl;
 
-  node->init();
+  node->init(atoi(argv[1]));
+
 
   rclcpp::Rate rate(5);
   while (rclcpp::ok()) {
