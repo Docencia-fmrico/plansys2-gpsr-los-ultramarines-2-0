@@ -55,6 +55,15 @@ def generate_launch_description():
             'sim.launch.py'))
         )
     '''
+    ###########
+    simulation_cmd = IncludeLaunchDescription(
+        PythonLaunchDescriptionSource(os.path.join(
+            get_package_share_directory('br2_tiago'),
+            'launch',
+            'sim.launch.py'))
+        )
+    ###########
+
     # Specify the actions
     move_cmd = Node(
         package='plansys2_bt_actions',
@@ -143,6 +152,12 @@ def generate_launch_description():
     ld.add_action(stdout_linebuf_envvar)
     ld.add_action(declare_namespace_cmd)
     # Declare the launch options
+
+    ###########
+    ld.add_action(simulation_cmd)
+    ld.add_action(navigation_cmd)
+    ##########
+    
     ld.add_action(plansys2_cmd)
     '''
     ld.add_action(gazebo_cmd)
@@ -152,4 +167,6 @@ def generate_launch_description():
     ld.add_action(release_stuff_cmd)
     ld.add_action(open_door_cmd)
     ld.add_action(close_door_cmd)
+    #####
+
     return ld
