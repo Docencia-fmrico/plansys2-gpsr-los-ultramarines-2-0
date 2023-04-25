@@ -41,14 +41,23 @@ colcon build --packages-select plansys2_gpsr
 PROBLEMA 1
 La abuela ha salido a jugar al bingo y ha encargado al robot ordenar la casa. Este deberá recoger varios objetos que hay repartidos por las habitaciones de la casa. En la siguiente imagen se encuentra la disposición del robot y de los objetos.
 
+![MAPA1](https://user-images.githubusercontent.com/98589920/234391060-25336f24-0432-4cbe-90fd-d52529cee4ec.png)
+
+
 PROBLEMA 2
 La abuela ha tenido un ataque de histeria viendo el salvame y está a punto de lanzarse por la terraza. El robot deberá coger a la abuela a tiempo y encerrarla en su dormitorio. Después, deberá recoger las pastillas repartidas por toda la casa, para después ir al cuarto de la abuela y entregarselas.
+
+![MAPA2](https://user-images.githubusercontent.com/98589920/234391409-b23ef682-58be-4321-9304-0e3b25d2d8ab.png)
+
 
 PROBLEMA 3
 La abuela manda al robot realizar una serie de tareas. Estas serán:
 - Coger la regadera del salon, llenarla en la cocina y regar las plantas de la terraza.
 - Coger la aspiradora y aspirar el polvo de las habitaciones.
 - Coger al perro sucio, lavarlo en el baño, llevarlo a la terraza para que se seque y dejarlo en el salón con la abuela.
+- 
+![MAPA3](https://user-images.githubusercontent.com/98589920/234391129-040b6df4-45dd-4246-b3c0-c9ea94f23ce6.png)
+
 
 ## BehaviorTree
 
