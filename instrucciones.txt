@@ -1,8 +1,0 @@
-1. ros2 launch ir_robots simulation.launch.py 
-2. Lanzar la navegación.
-3. ros2 launch plansys2_gpsr gpsr_launch.py
-4. ros2 run plansys2_gpsr move_action_node
-5. ros2 run plansys2_gpsr gpsr_controller 
-
-
-Para cambiar el goal hay que ir al gpsr_controller y modificar donde pone SetGoal
