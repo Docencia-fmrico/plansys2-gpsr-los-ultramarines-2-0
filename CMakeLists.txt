@@ -15,6 +15,7 @@ find_package(plansys2_problem_expert REQUIRED)
 find_package(plansys2_pddl_parser REQUIRED)
 find_package(ament_index_cpp REQUIRED)
 find_package(plansys2_bt_actions REQUIRED)
+find_package(test_msgs REQUIRED)
 
 set(CMAKE_CXX_STANDARD 17)
 
@@ -32,6 +33,7 @@ set(dependencies
     plansys2_pddl_parser
     ament_index_cpp
     plansys2_bt_actions
+    test_msgs
 )
 
 include_directories(include)
