@@ -12,31 +12,24 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
-#include <string>
-#include <iostream>
-
 #include "bt_include/DropItem.hpp"
+
+#include <iostream>
+#include <string>
 
 #include "behaviortree_cpp_v3/behavior_tree.h"
 
 namespace plansys2_gpsr
 {
 
-DropItem::DropItem(
-  const std::string & xml_tag_name,
-  const BT::NodeConfiguration & conf)
+DropItem::DropItem(const std::string & xml_tag_name, const BT::NodeConfiguration & conf)
 : BT::ActionNodeBase(xml_tag_name, conf), counter_(0)
 {
 }
 
-void
-DropItem::halt()
-{
-  std::cout << "DropItem halt" << std::endl;
-}
+void DropItem::halt() {std::cout << "DropItem halt" << std::endl;}
 
-BT::NodeStatus
-DropItem::tick()
+BT::NodeStatus DropItem::tick()
 {
   std::cout << "DropItem: " << counter_ * 10 << std::endl;
 
@@ -51,7 +44,6 @@ DropItem::tick()
 }  // namespace plansys2_gpsr
 
 #include "behaviortree_cpp_v3/bt_factory.h"
-BT_REGISTER_NODES(factory)
-{
+BT_REGISTER_NODES(factory) {
   factory.registerNodeType<plansys2_gpsr::DropItem>("DropItem");
 }

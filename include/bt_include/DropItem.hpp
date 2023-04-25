@@ -12,8 +12,8 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
-#ifndef BEHAVIOR_TREE__DROP_ITEM_HPP_
-#define BEHAVIOR_TREE__DROP_ITEM_HPP_
+#ifndef BT_INCLUDE__DROPITEM_HPP_
+#define BT_INCLUDE__DROPITEM_HPP_
 
 #include <string>
 
@@ -44,4 +44,4 @@ private:
 
 }  // namespace plansys2_gpsr
 
-#endif  // BEHAVIOR_TREE__DROP_ITEM_HPP_
+#endif  // BT_INCLUDE__DROPITEM_HPP_

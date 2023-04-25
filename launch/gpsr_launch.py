@@ -43,7 +43,7 @@ def generate_launch_description():
             'plansys2_bringup_launch_monolithic.py')),
         launch_arguments={
             'model_file': example_dir + '/pddl/planning_domain_durative.pddl',
-            'namespace':namespace
+            'namespace': namespace
             }.items()
         )
 
@@ -80,7 +80,7 @@ def generate_launch_description():
             'bt_xml_file': example_dir + '/bt_xml/move.xml'
           }
         ])
-    
+
     take_stuff_cmd = Node(
         package='plansys2_bt_actions',
         executable='bt_action_node',
@@ -128,7 +128,7 @@ def generate_launch_description():
             'bt_xml_file': example_dir + '/bt_xml/CloseDoor.xml'
           }
         ])
-    
+
     open_door_cmd = Node(
         package='plansys2_bt_actions',
         executable='bt_action_node',
@@ -144,7 +144,7 @@ def generate_launch_description():
             'bt_xml_file': example_dir + '/bt_xml/OpenDoor.xml'
           }
         ])
-  
+
     # Create the launch description and populate
     ld = LaunchDescription()
 
@@ -155,9 +155,9 @@ def generate_launch_description():
 
     ###########
     ld.add_action(simulation_cmd)
-    ld.add_action(navigation_cmd)
+    # ld.add_action(navigation_cmd)
     ##########
-    
+
     ld.add_action(plansys2_cmd)
     '''
     ld.add_action(gazebo_cmd)
