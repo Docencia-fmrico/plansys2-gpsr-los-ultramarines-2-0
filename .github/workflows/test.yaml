@@ -27,7 +27,7 @@ jobs:
         with:
           package-name: plansys2_gpsr
           target-ros2-distro: humble
-          import-token: ${{ secrets.WORKFLOW_TEST }}
+          import-token: ${{ secrets.WORKFLOW_TOKEN }}
           colcon-defaults: |
             {
               "test": {
