@@ -92,11 +92,14 @@ ros2 run plansys2_gpsr gpsr_controller
 
 Para cambiar el goal hay que ir al gpsr_controller y modificar donde pone SetGoal
 
-## Videos
+## Videos (x5000)
 
-
+### pr1 ( 22 min )
 https://user-images.githubusercontent.com/69701088/234404223-fe1c36c3-1464-4ed8-8699-6e5acc098e49.mp4
 
+### pr2 ( 33 min )
+
+### pr3 ( 1h 10 min )
 
 ## Authors
  - [Jose Manuel](https://github.com/Josetost)
