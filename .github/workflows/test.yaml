@@ -16,8 +16,14 @@ jobs:
     steps:
       - name: Install deps
         run: sudo apt-get update && sudo apt-get install -y wget python3-vcstool python3-colcon-coveragepy-result
+      - name: Set up Git credentials
+        run: |
+          git config --global user.name "github-actions"
+          git config --global user.email "github-actions@users.noreply.github.com"
+          git config --global credential.helper store
+          echo "https://${{ secrets.WORKFLOW_TEST }}:x-oauth-basic@github.com" > ~/.git-credentials
       - name: build and test
-        uses: ros-tooling/action-ros-ci@0.2.6
+        uses: ros-tooling/action-ros-ci@v0.2.9
         with:
           package-name: plansys2_gpsr
           target-ros2-distro: humble
