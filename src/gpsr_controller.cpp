@@ -246,7 +246,6 @@ public:
   }
 
   void step() { 
-    std::cout << "State: " << state_ << std::endl;
     bool new_plan = false;
 
     switch (state_) {
