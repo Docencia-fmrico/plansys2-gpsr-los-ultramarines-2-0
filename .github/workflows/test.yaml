@@ -21,8 +21,11 @@ jobs:
       - name: Install deps
         run: sudo apt-get update && sudo apt-get install -y wget python3-colcon-coveragepy-result
 
-      
-      - name: Run tests
+      - name: Clone repo
+        uses: actions/checkout@v2
+
+      - name: Build and test
         run: |
           . /opt/ros/humble/setup.sh
+          colcon build --event-handlers console_direct+ --packages-select plansys2_gpsr
           colcon test --event-handlers console_direct+ --packages-select plansys2_gpsr
