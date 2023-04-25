@@ -19,11 +19,7 @@ jobs:
       fail-fast: false
     steps:
       - name: Install deps
-        run: |
-          sudo apt-get update
-          sudo apt-get install -y wget python3-vcstool python3-colcon-coveragepy-result
-          sudo apt-get install -y ros-${{ matrix.ros_distro }}-ament-lint-auto ros-${{ matrix.ros_distro }}-ament-lint-common
-          sudo apt-get install -y ros-${{ matrix.ros_distro }}-test-msgs
+        run: sudo apt-get update && sudo apt-get install -y wget python3-colcon-coveragepy-result
 
       
       - name: build and test
