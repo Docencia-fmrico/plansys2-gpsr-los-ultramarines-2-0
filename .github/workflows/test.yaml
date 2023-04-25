@@ -24,7 +24,7 @@ jobs:
       - name: build and test
         uses: ros-tooling/action-ros-ci@0.2.6
         with:
-          package-name: tyros2_bt_bumpstop
+          package-name: plansys2_gpsr
           target-ros2-distro: humble
           import-token: ${{ secrets.WORKFLOW_TEST }}
           colcon-defaults: |
