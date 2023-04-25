@@ -91,6 +91,10 @@ Para cambiar el goal hay que ir al gpsr_controller y modificar donde pone SetGoa
 
 ## Videos
 
+
+https://user-images.githubusercontent.com/69701088/234404223-fe1c36c3-1464-4ed8-8699-6e5acc098e49.mp4
+
+
 ## Authors
  - [Jose Manuel](https://github.com/Josetost)
  - [Laura Roa](https://github.com/lroa2019)
