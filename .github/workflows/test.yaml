@@ -12,16 +12,13 @@ jobs:
     strategy:
       matrix:
         os: [ubuntu-22.04]
+        ros_distro: [humble]
       fail-fast: false
     steps:
       - name: Install deps
-        run: sudo apt-get update && sudo apt-get install -y wget python3-vcstool python3-colcon-coveragepy-result python3-ament-lint
-      - name: Set up Git credentials
-        run: |
-          git config --global user.name "github-actions"
-          git config --global user.email "github-actions@users.noreply.github.com"
-          git config --global credential.helper store
-          echo "https://${{ secrets.WORKFLOW_TEST }}:x-oauth-basic@github.com" > ~/.git-credentials
+        run: sudo apt-get update && sudo apt-get install -y wget python3-vcstool python3-colcon-coveragepy-result ros-${{ matrix.ros_distro }}-test-msgs
+      - name: Install ament_lint
+        run: sudo apt-get install -y python3-ament-lint-auto python3-ament-lint-common
       - name: build and test
         uses: ros-tooling/action-ros-ci@0.2.6
         with:
@@ -34,9 +31,3 @@ jobs:
                 "parallel-workers" : 1
               }
             }
-      - name: Run tests
-        run: |
-          . /opt/ros/humble/setup.sh
-          colcon test --event-handlers console_direct+ --packages-select plansys2_gpsr
-      - name: Display test results
-        run: colcon test-result --all
