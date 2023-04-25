@@ -1,6 +1,19 @@
 [![Review Assignment Due Date](https://classroom.github.com/assets/deadline-readme-button-8d59dc4de5201274e310e4c54b9627a8934c3b88527886e3b421487c677d23eb.svg)](https://classroom.github.com/a/j9y_86cr)
+
 # plansys2_gpsr
 
+## Índice
+- [Enunciado](#enunciado)
+- [Setup](#setup)
+- [Objetivo](#objetivo)
+- [Problemas](#problemas)
+- [BehaviorTree](#behaviortree)
+- [Ejecución](#ejecución)
+- [Tests](#tests)
+- [Videos](#videos)
+- [Authors](#authors)
+
+## Enunciado
 Ejercicio 4 de Planificación y Sistemas Cognitivos 2023
 
 En grupos de 4, haced una aplicación en ROS 2 usando PlanSys2 que use el dominio de la [Práctica 3](https://github.com/Docencia-fmrico/planning-exercise/blob/main/README.md). El robot debe poder realizar en un simulador, navegando con Nav2, goals similares a los siguientes:
@@ -15,3 +28,39 @@ Puntuación (sobre 10):
 * +2 Readme.md bien documentado con videos.
 * +2 CI con Test de los nodos BT
 * -3 Warnings o que no pase los tests.
+
+## Setup
+Compilar el paquete.
+```
+colcon build --packages-select plansys2_gpsr
+```
+
+## Objetivo
+
+## Problemas
+
+## BehaviorTree
+
+## Ejecución
+Lanzar el simulador.
+```
+ros2 launch ir_robots simulation.launch.py
+```
+Lanzar la navegación.
+```
+ros2 launch plansys2_gpsr gpsr_launch.py
+ros2 run plansys2_gpsr move_action_node
+ros2 run plansys2_gpsr gpsr_controller 
+```
+
+Para cambiar el goal hay que ir al gpsr_controller y modificar donde pone SetGoal
+
+## Tests
+
+## Videos
+
+## Authors
+ - [Jose Manuel](https://github.com/Josetost)
+ - [Laura Roa](https://github.com/lroa2019)
+ - [Jorge Rando](https://github.com/jorgerando)
+ - [Santiago Fenes](https://github.com/santtfg)
