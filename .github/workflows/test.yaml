@@ -1,12 +1,8 @@
 name: test
 
 on:
-  pull_request:
-    branches:
-      - main
-  push:
-    branches:
-      - main
+  - pull_request
+  - push
 
 jobs:
   build-and-test:
@@ -19,13 +15,22 @@ jobs:
       fail-fast: false
     steps:
       - name: Install deps
-        run: sudo apt-get update && sudo apt-get install -y wget python3-colcon-coveragepy-result
-
-      - name: Clone repo
-        uses: actions/checkout@v2
-
-      - name: Build and test
+        run: sudo apt-get update && sudo apt-get install -y wget python3-vcstool python3-colcon-coveragepy-result python3-ament-lint
+      - name: build and test
+        uses: ros-tooling/action-ros-ci@0.2.6
+        with:
+          package-name: plansys2_gpsr
+          target-ros2-distro: humble
+          import-token: ${{ secrets.WORKFLOW_TEST }}
+          colcon-defaults: |
+            {
+              "test": {
+                "parallel-workers" : 1
+              }
+            }
+      - name: Run tests
         run: |
           . /opt/ros/humble/setup.sh
-          colcon build --event-handlers console_direct+ --packages-select plansys2_gpsr
           colcon test --event-handlers console_direct+ --packages-select plansys2_gpsr
+      - name: Display test results
+        run: colcon test-result --all
