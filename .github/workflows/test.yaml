@@ -21,7 +21,7 @@ jobs:
           git config --global user.name "github-actions"
           git config --global user.email "github-actions@users.noreply.github.com"
           git config --global credential.helper store
-          echo "https://${{ secrets.WORKFLOW_TEST }}:x-oauth-basic@github.com" > ~/.git-credentials
+          echo "https://${{ secrets.WORKFLOW_TOKEN }}:x-oauth-basic@github.com" > ~/.git-credentials
       - name: build and test
         uses: ros-tooling/action-ros-ci@v0.2.9
         with:
