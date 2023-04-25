@@ -21,13 +21,13 @@ jobs:
           git config --global user.name "github-actions"
           git config --global user.email "github-actions@users.noreply.github.com"
           git config --global credential.helper store
-          echo "https://${{ secrets.WORKFLOW_TOKEN }}:x-oauth-basic@github.com" > ~/.git-credentials
+          echo "https://${{ secrets.WORKFLOW_TEST }}:x-oauth-basic@github.com" > ~/.git-credentials
       - name: build and test
         uses: ros-tooling/action-ros-ci@0.2.6
         with:
           package-name: plansys2_gpsr
           target-ros2-distro: humble
-          import-token: ${{ secrets.WORKFLOW_TOKEN }}
+          import-token: ${{ secrets.WORKFLOW_TEST }}
           colcon-defaults: |
             {
               "test": {
