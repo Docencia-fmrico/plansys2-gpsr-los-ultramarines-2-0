@@ -50,7 +50,7 @@ Además, el dominio incluye los siguientes predicados:
 
 ## Problemas
 ### PROBLEMA 1: CLEAN THE HOUSE
-La abuela ha salido a jugar al bingo y ha encargado al robot ordenar la casa. Este deberá recoger varios objetos que hay repartidos por las habitaciones de la casa. En la siguiente imagen se encuentra la disposición del robot y de los objetos.
+La abuela ha salido a jugar al bingo y ha encargado al robot ordenar la casa. Este deberá recoger varios objetos que hay repartidos por las habitaciones de la casa y depositarlos en el lugar que le corresponden. En la siguiente imagen se encuentra la disposición del robot y de los objetos.
 
 
 ![MAPA1](https://user-images.githubusercontent.com/98589920/234391060-25336f24-0432-4cbe-90fd-d52529cee4ec.png)
