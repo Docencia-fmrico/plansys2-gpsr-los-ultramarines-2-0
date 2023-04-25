@@ -1,0 +1,24 @@
+move:
+  ros__parameters:
+    plugins:
+      - plansys2_move_bt_node
+    waypoints: ["Bano", "Cocina", "Salon", "Dormitorio", "Pasillo"]
+    waypoint_coords:
+      Pasillo: [0.0, 0.0, 0.0]
+      Bano: [7.395752906799316, -5.2851362228393555, 0.0]
+      Cocina: [7.395752906799316, -19.47663688659668, 0.0]
+      Salon: [6.75584077835083, -9.849526405334473, 0.0]
+      Dormitorio: [4.6333746910095215, -10.034628868103027, 0.0]
+      #doormat21: [6.5901713371276855, -23.835140228271484, 0.0]
+      #doormat22: [4.809231281280518, -23.967548370361328, 0.0]
+      #doormat_toilet: [6.265537738800049, -15.531100273132324, 0.0]
+cross_door:
+  ros__parameters:
+    plugins:
+      - plansys2_move_bt_node
+    waypoints: ["PBano", "PCocina"]
+    waypoint_coords:
+      PBano: [6.265537738800049, -15.531100273132324, 0.0]
+      PCocina: [6.317922592163086, -14.531100273132324, 0.0]
+      PSalon: [5.317922592163086, -11.531100273132324, 0.0]
+      PDormitorio: [4.317922592163086, -12.531100273132324, 0.0]

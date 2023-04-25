@@ -1,0 +1,32 @@
+move:
+  ros__parameters:
+    plugins:
+      - bt_move
+    waypoints: ["Bano", "Cocina", "Salon", "Dormitorio", "Pasillo"]
+    waypoint_coords:
+      Bano: [-8.0, -18.0, 0.0]
+      Cocina: [-8.0, -5.0, 0.0]
+      Salon: [8.0, -3.0, 0.0]
+      Dormitorio: [8.0, -18.0, 0.0]
+      Terraza: [5.0, -25.0, 0.0]
+      Pasillo: [0.0, 2.0, 0.0]
+
+PickItem:
+  ros__parameters:
+    plugins:
+      - bt_pick
+
+DropItem:
+  ros__parameters:
+    plugins:
+      - bt_drop
+
+OpenDoor:
+  ros__parameters:
+    plugins:
+      - bt_opendoor
+
+CloseDoor:
+  ros__parameters:
+    plugins:
+      - bt_closedoor
