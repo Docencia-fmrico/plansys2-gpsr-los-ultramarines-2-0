@@ -12,8 +12,8 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
-#ifndef BEHAVIOR_TREE__MOVE_HPP_
-#define BEHAVIOR_TREE__MOVE_HPP_
+#ifndef BT_INCLUDE__MOVE_HPP_
+#define BT_INCLUDE__MOVE_HPP_
 
 #include <string>
 #include <map>
@@ -55,4 +55,4 @@ private:
 
 }  // namespace plansys2_gpsr
 
-#endif  // BEHAVIOR_TREE__MOVE_HPP_
+#endif  // BT_INCLUDE__MOVE_HPP_

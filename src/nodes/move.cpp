@@ -12,27 +12,23 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
-#include <string>
-#include <iostream>
-#include <vector>
-#include <memory>
-
 #include "bt_include/move.hpp"
 
-#include "geometry_msgs/msg/pose2_d.hpp"
-#include "tf2_geometry_msgs/tf2_geometry_msgs.hpp"
-
+#include <iostream>
+#include <memory>
+#include <string>
+#include <vector>
 
 #include "behaviortree_cpp_v3/behavior_tree.h"
+#include "geometry_msgs/msg/pose2_d.hpp"
 #include "rclcpp_lifecycle/lifecycle_node.hpp"
-
+#include "tf2_geometry_msgs/tf2_geometry_msgs.hpp"
 
 namespace plansys2_gpsr
 {
 
 Move::Move(
-  const std::string & xml_tag_name,
-  const std::string & action_name,
+  const std::string & xml_tag_name, const std::string & action_name,
   const BT::NodeConfiguration & conf)
 : plansys2::BtActionNode<nav2_msgs::action::NavigateToPose>(xml_tag_name, action_name, conf)
 {
@@ -72,8 +68,7 @@ Move::Move(
   }
 }
 
-BT::NodeStatus
-Move::on_tick()
+BT::NodeStatus Move::on_tick()
 {
   if (status() == BT::NodeStatus::IDLE) {
     rclcpp_lifecycle::LifecycleNode::SharedPtr node;
@@ -104,25 +99,16 @@ Move::on_tick()
   return BT::NodeStatus::RUNNING;
 }
 
-BT::NodeStatus
-Move::on_success()
-{
-  return BT::NodeStatus::SUCCESS;
-}
-
+BT::NodeStatus Move::on_success() {return BT::NodeStatus::SUCCESS;}
 
 }  // namespace plansys2_gpsr
 
 #include "behaviortree_cpp_v3/bt_factory.h"
 BT_REGISTER_NODES(factory)
 {
-  BT::NodeBuilder builder =
-    [](const std::string & name, const BT::NodeConfiguration & config)
-    {
-      return std::make_unique<plansys2_gpsr::Move>(
-        name, "move", config);
+  BT::NodeBuilder builder = [](const std::string & name, const BT::NodeConfiguration & config) {
+      return std::make_unique<plansys2_gpsr::Move>(name, "move", config);
     };
 
-  factory.registerBuilder<plansys2_gpsr::Move>(
-    "Move", builder);
+  factory.registerBuilder<plansys2_gpsr::Move>("Move", builder);
 }

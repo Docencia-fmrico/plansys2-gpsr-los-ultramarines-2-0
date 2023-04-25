@@ -12,31 +12,24 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
-#include <string>
-#include <iostream>
-
 #include "bt_include/PickItem.hpp"
+
+#include <iostream>
+#include <string>
 
 #include "behaviortree_cpp_v3/behavior_tree.h"
 
 namespace plansys2_gpsr
 {
 
-PickItem::PickItem(
-  const std::string & xml_tag_name,
-  const BT::NodeConfiguration & conf)
+PickItem::PickItem(const std::string & xml_tag_name, const BT::NodeConfiguration & conf)
 : BT::ActionNodeBase(xml_tag_name, conf), counter_(0)
 {
 }
 
-void
-PickItem::halt()
-{
-  std::cout << "PickItem halt" << std::endl;
-}
+void PickItem::halt() {std::cout << "PickItem halt" << std::endl;}
 
-BT::NodeStatus
-PickItem::tick()
+BT::NodeStatus PickItem::tick()
 {
   std::cout << "------------->>---------->>>\n" << std::endl;
   std::cout << "PickItem: " << counter_ * 10 << std::endl;
@@ -52,7 +45,6 @@ PickItem::tick()
 }  // namespace plansys2_gpsr
 
 #include "behaviortree_cpp_v3/bt_factory.h"
-BT_REGISTER_NODES(factory)
-{
+BT_REGISTER_NODES(factory) {
   factory.registerNodeType<plansys2_gpsr::PickItem>("PickItem");
 }
