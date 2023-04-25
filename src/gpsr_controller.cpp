@@ -130,7 +130,7 @@ public:
     problem_expert_->addPredicate(plansys2::Predicate("(dooropen pterraza)"));
     problem_expert_->addPredicate(plansys2::Predicate("(dooropen ppasillo)"));
 
-    problem_expert_->addPredicate(plansys2::Predicate("(robotat paco dormitorio)"));
+    problem_expert_->addPredicate(plansys2::Predicate("(robotat paco terraza)"));
 
     problem_expert_->addPredicate(plansys2::Predicate("(objectat medicina bano)"));
     problem_expert_->addPredicate(plansys2::Predicate("(objectat plato salon)"));
@@ -186,11 +186,11 @@ public:
 
     problem_expert_->addInstance(plansys2::Instance{"abuela", "object"});
 
-    problem_expert_->addPredicate(plansys2::Predicate("(doorclosed pbano)"));
+    problem_expert_->addPredicate(plansys2::Predicate("(dooropen pbano)"));
     problem_expert_->addPredicate(plansys2::Predicate("(dooropen pcocina)"));
     problem_expert_->addPredicate(plansys2::Predicate("(dooropen psalon)"));
     problem_expert_->addPredicate(plansys2::Predicate("(dooropen pdormitorio)"));
-    problem_expert_->addPredicate(plansys2::Predicate("(doorclosed pterraza)"));
+    problem_expert_->addPredicate(plansys2::Predicate("(dooropen pterraza)"));
     problem_expert_->addPredicate(plansys2::Predicate("(dooropen ppasillo)"));
 
     problem_expert_->addPredicate(plansys2::Predicate("(robotat paco pasillo)"));
