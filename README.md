@@ -103,6 +103,13 @@ https://user-images.githubusercontent.com/69701088/234433375-6e0f61ad-5098-4c85-
 
 ### pr3 ( 1h 10 min )
 
+https://user-images.githubusercontent.com/69701088/234440997-e91f7b57-58f5-4ad2-8db4-3303a4ab79e1.mp4
+
+![1](https://user-images.githubusercontent.com/69701088/234441809-45f29f15-9433-4f45-a6b9-1fecdb93f516.jpg)
+![2](https://user-images.githubusercontent.com/69701088/234441815-097988d2-eeac-420c-aebb-94481de6c26e.jpg)
+![3](https://user-images.githubusercontent.com/69701088/234441818-7593fc51-7661-47b6-9883-ebd18429fbac.jpg)
+
+
 ## Authors
  - [Jose Manuel](https://github.com/Josetost)
  - [Laura Roa](https://github.com/lroa2019)
